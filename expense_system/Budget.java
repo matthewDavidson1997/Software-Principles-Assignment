@@ -5,15 +5,19 @@ import java.util.List;
 
 public class Budget {
 
+    // fields
     private double startingAmount;
     private double currentAmount;
-    private List<Expense> expenses = new ArrayList<>();
+    private List<Expense> expenses;
 
+    // constructor
     public Budget(double startingAmount) {
         this.startingAmount = startingAmount;
         this.currentAmount = startingAmount;
+        this.expenses = new ArrayList<>();
     }
 
+    // methods
     public void addFunds(double amount) {
         this.currentAmount += amount;
     }
