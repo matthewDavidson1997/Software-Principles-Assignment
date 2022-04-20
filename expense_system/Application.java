@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Application {
+    // fields
+    private List<Team> teams;
 
-    private List<Team> teams = new ArrayList<>();
+    // constructor
+    public Application() {
+        this.teams = new ArrayList<>();
+    }
 
+    // methods
     public List<Team> getTeams() {
         return this.teams;
     }
