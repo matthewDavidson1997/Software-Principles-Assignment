@@ -5,15 +5,19 @@ import java.util.List;
 
 public class Team {
 
+    // fields
     private String teamName;
     private Budget budget;
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
+    // constructor
     public Team(String name, double budget) {
         this.teamName = name;
         this.budget = new Budget(budget);
+        this.users = new ArrayList<>();
     }
 
+    // methods
     public void addUser(User user) {
         this.users.add(user);
     }
