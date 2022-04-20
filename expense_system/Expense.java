@@ -7,19 +7,22 @@ import java.util.Locale;
 
 public class Expense {
 
+    // fields
     private double amount;
     private String description;
     private Date date;
     private User user;
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
 
+    // constructor
     public Expense(double amount, String description, String dateString, User user) throws ParseException {
         this.amount = amount;
         this.description = description;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
         this.date = formatter.parse(dateString);
         this.user = user;
     }
 
+    // methods
     public double getAmount() {
         return this.amount;
     }
