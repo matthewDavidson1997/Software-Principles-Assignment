@@ -88,14 +88,14 @@ public class Menu {
             default: System.out.println("Invalid choice");
         }
     }
-    
+
     public void createLoggedInMenu() {
         clearScreen();
         Application app = new Application();
-        Budget budget = team1.getBudget();
+        /*Budget budget = team1.getBudget();
         User currentUser = app.getCurrentUser();
         String currentUserTeam = app.findTeam(currentUser);
-        
+        */
         System.out.println(" -------------------------------------------------------");
         System.out.println("|  feel good fund system                                |");
         System.out.println("|                                                       |"); 
