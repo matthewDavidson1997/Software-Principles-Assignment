@@ -1,47 +1,118 @@
 package expense_system;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 
+import java.util.List;
 
 public class Menu {
-    public boolean userValidated = false;
     
+    boolean validChoice = false;
+
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    } 
+
+    public void showHomeMenu(){
+        this.createHomeMenu();
+    }
+
     public void showLoginMenu(){
         this.createLoginMenu();
     }
 
-    public void createLoginMenu(){
-        
+    public void createHomeMenu(){
+        clearScreen();
         System.out.println(" -------------------------------------------------------");
-        System.out.println("|         Welcome to the feel good fund system          |");
+        System.out.println("|  feel good fund management system                     |");
+        System.out.println("|                                                       |"); 
+        System.out.println("|  Where would you like to go?                          |");
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  1. Login                                             |"); 
+        System.out.println("|  2. About                                             |"); 
+        System.out.println("|  3. Help Guide                                        |"); 
+        System.out.println(" -------------------------------------------------------\n");
+        do{
+            Application app = new Application();
+            int userChoice = app.takeUserChoice();
+
+            switch (userChoice) {
+                case 1: createLoginMenu();
+                        break;
+                case 2: createAboutMenu();
+                        break;
+                case 3: System.out.println("Help Guide selected");
+                        break;
+                default: System.out.println("Invalid choice");
+            }
+        }
+        while (validChoice == false);
+    }
+
+    public void createLoginMenu(){
+        clearScreen();
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  feel good fund system                                |");
         System.out.println("|                                                       |"); 
         System.out.println("|  Please enter your username and password to continue  |");
         System.out.println(" -------------------------------------------------------\n\n");
-        takeUserCredentials();
+        Application app = new Application();
+        app.takeUserCredentials();
+        createLoggedInMenu();
     }
 
-    public void takeUserCredentials(){
-        do {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter your username: ");
-        String userName = scanner.nextLine();
-        System.out.println("Please Enter your password: ");
-        String password = scanner.nextLine();
-        validateUser(userName, password);
+    public void createAboutMenu(){
+        clearScreen();
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  feel good fund system                                |");
+        System.out.println("|                                                       |"); 
+        System.out.println("|  Redgate has always looked after its employees.       |");
+        System.out.println("|  As such a 'Feel Good Fund' was established which     |");
+        System.out.println("|  is money set aside for each team to do social        |");
+        System.out.println("|  activities together and reclaim their expenses.      |");
+        System.out.println("|                                                       |");
+        System.out.println("|  This platform allows each team to track their        |");
+        System.out.println("|  budget, seeing remaining budget, track expenses,     |");
+        System.out.println("|  and submitting new expenses.                         |");
+        System.out.println("|                                                       |");
+        System.out.println("|  It does not act as a replacement to the usual        |");
+        System.out.println("|  process of expenses to claim back money spent.       |");
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  Where would you like to go?                          |");
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  1. Home                                              |"); 
+        System.out.println(" -------------------------------------------------------\n");
+        Application app = new Application();
+        int userChoice = app.takeUserChoice();
+        switch (userChoice) {
+            case 1: createHomeMenu();
+                break;
+            default: System.out.println("Invalid choice");
         }
-        while (!userValidated);
     }
 
-    public void validateUser(String userName, String password) {
-        
-        if (userName.equals("TestUser") && password.equals("password")) {
-            System.out.print("Login successful\n\n");
-            userValidated = true;
-        } else {
-            System.out.println("Login unsuccessful, please enter valid credentials.");
-            userValidated = false;
-        }
+    public void createLoggedInMenu() {
+        clearScreen();
+        Application app = new Application();
+        String currentUser = app.getCurrentUser();
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  feel good fund system                                |");
+        System.out.println("|                                                       |"); 
+        System.out.println("|  Username: " + currentUser + "       |");
+        System.out.println("|  As such a 'Feel Good Fund' was established which     |");
+        System.out.println("|  is money set aside for each team to do social        |");
+        System.out.println("|  activities together and reclaim their expenses.      |");
+        System.out.println("|                                                       |");
+        System.out.println("|  This platform allows each team to track their        |");
+        System.out.println("|  budget, seeing remaining budget, track expenses,     |");
+        System.out.println("|  and submitting new expenses.                         |");
+        System.out.println("|                                                       |");
+        System.out.println("|  It does not act as a replacement to the usual        |");
+        System.out.println("|  process of expenses to claim back money spent.       |");
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  Where would you like to go?                          |");
+        System.out.println(" -------------------------------------------------------");
+        System.out.println("|  1. Home                                              |"); 
+        System.out.println(" -------------------------------------------------------\n");
+        int userChoice = app.takeUserChoice();
     }
-    
+ 
 }

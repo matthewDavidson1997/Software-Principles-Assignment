@@ -2,11 +2,16 @@ package expense_system;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 class Application {
     // fields
     private List<Team> teams;
+
+    boolean userValidated = false;
+    String currentUser;
 
     // constructor
     public Application() {
@@ -14,6 +19,56 @@ class Application {
     }
 
     // methods
+
+    public void setCurrentUser(String user) {
+        currentUser = user;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void takeUserCredentials(){
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please enter your username: ");
+            String userName = scanner.nextLine();
+            System.out.println("Please Enter your password: ");
+            String password = scanner.nextLine();
+            validateUser(userName, password);
+        }
+        while (!userValidated);
+    }
+
+    public void validateUser(String userName, String password) {
+        
+        if (userName.equals("TestUser") && password.equals("password")) {
+            System.out.print("Login successful\n\n");
+            setCurrentUser(userName);
+            userValidated = true;
+        } else {
+            System.out.println("Login unsuccessful, please enter valid credentials.");
+            userValidated = false;
+        }
+    }
+
+    public int takeUserChoice(){
+        Scanner scanner = new Scanner(System.in);
+        int userChoice = 0;
+        do {
+            try {
+                System.out.println("Please enter your choice: ");
+                userChoice = scanner.nextInt();  
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Invalid type choice. ");
+            }
+            scanner.nextLine();
+        } while (userChoice <= 0);
+        return userChoice;
+    }
+
+
     public List<Team> getTeams() {
         return this.teams;
     }
@@ -39,18 +94,15 @@ class Application {
         budget.recordExpense(expense);
 
     }
-
-    public static void clearScreen() {  
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();  
-    }  
+ 
 
     public static void main(String[] args) throws ParseException {
 
         Application app = new Application();
 
-        Menu menu = new Menu();
-        menu.showLoginMenu();
+        Menu homeMenu = new Menu();
+        homeMenu.createHomeMenu();
+
 
         Team team1 = new Team("Team 1", 1000.0);
         app.addTeam(team1);
