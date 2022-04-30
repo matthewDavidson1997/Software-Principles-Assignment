@@ -40,9 +40,18 @@ class Application {
 
     }
 
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }  
+
     public static void main(String[] args) throws ParseException {
 
         Application app = new Application();
+
+        Menu menu = new Menu();
+        menu.showLoginMenu();
+
         Team team1 = new Team("Team 1", 1000.0);
         app.addTeam(team1);
         Budget budget = team1.getBudget();
@@ -64,6 +73,9 @@ class Application {
 
         System.out.println(team1.getTeamName() + " " + team1.getBudget());
         System.out.println(team1.getUsers());
+
+        
+        
 
     }
 }

@@ -5,8 +5,12 @@ public class Team {
     - Members
     - Budget
 
-
     Methods:
-    - 
+    - Get budget
+    - Set budget
+    - Add Member
+
     */
+
+
 }

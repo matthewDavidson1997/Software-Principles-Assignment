@@ -11,6 +11,6 @@ public class Expense {
 
     Methods:
     - Update budget
-    - 
+    
     */
 }

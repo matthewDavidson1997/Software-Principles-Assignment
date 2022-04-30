@@ -16,4 +16,8 @@ public class User {
     public String toString() {
         return this.firstName + " " + this.lastName;
     }
+
+    public void setCurrentUser() {
+        
+    }
 }
