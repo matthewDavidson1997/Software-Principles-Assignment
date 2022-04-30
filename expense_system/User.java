@@ -3,13 +3,11 @@ package expense_system;
 public class User {
 
     // fields
-    private String firstName;
-    private String lastName;
+    private String userName;
 
     // constructor
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String userName) {
+        this.userName = userName;
     }
 
     // methods

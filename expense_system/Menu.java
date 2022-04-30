@@ -88,29 +88,38 @@ public class Menu {
             default: System.out.println("Invalid choice");
         }
     }
-
+    
     public void createLoggedInMenu() {
         clearScreen();
         Application app = new Application();
-        String currentUser = app.getCurrentUser();
+        Budget budget = team1.getBudget();
+        User currentUser = app.getCurrentUser();
+        String currentUserTeam = app.findTeam(currentUser);
+        
         System.out.println(" -------------------------------------------------------");
         System.out.println("|  feel good fund system                                |");
         System.out.println("|                                                       |"); 
-        System.out.println("|  Username: " + currentUser + "       |");
-        System.out.println("|  As such a 'Feel Good Fund' was established which     |");
-        System.out.println("|  is money set aside for each team to do social        |");
-        System.out.println("|  activities together and reclaim their expenses.      |");
+        System.out.println(   "|  Username:               " + currentUser + "          |");
+        System.out.println(   "|  Team:                   " + currentUserTeam + "      |");
+        System.out.println(   "|  Remaining Team Balance: " + budget + "               |");
+        System.out.println(" -------------------------------------------------------");
+
+            // for i in expenses print i
+
         System.out.println("|                                                       |");
-        System.out.println("|  This platform allows each team to track their        |");
-        System.out.println("|  budget, seeing remaining budget, track expenses,     |");
-        System.out.println("|  and submitting new expenses.                         |");
         System.out.println("|                                                       |");
-        System.out.println("|  It does not act as a replacement to the usual        |");
-        System.out.println("|  process of expenses to claim back money spent.       |");
+        System.out.println("|                                                       |");
+        System.out.println("|                                                       |");
+        System.out.println("|                                                       |");
+        System.out.println("|                                                       |");
+        System.out.println("|                                                       |");
         System.out.println(" -------------------------------------------------------");
         System.out.println("|  Where would you like to go?                          |");
         System.out.println(" -------------------------------------------------------");
-        System.out.println("|  1. Home                                              |"); 
+        System.out.println("|  1. Enter Expense                                     |"); 
+        System.out.println("|  2. Help Guide                                        |");
+        System.out.println("|  3. Options                                           |");
+        System.out.println("|  4. Log out                                           |");
         System.out.println(" -------------------------------------------------------\n");
         int userChoice = app.takeUserChoice();
     }

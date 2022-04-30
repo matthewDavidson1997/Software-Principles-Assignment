@@ -100,17 +100,13 @@ class Application {
 
         Application app = new Application();
 
-        Menu homeMenu = new Menu();
-        homeMenu.createHomeMenu();
-
-
         Team team1 = new Team("Team 1", 1000.0);
         app.addTeam(team1);
         Budget budget = team1.getBudget();
         budget.addFunds(100);
 
-        User user1 = new User("Joe", "Bloggs");
-        User user2 = new User("Bob", "Roberts");
+        User user1 = new User("TestUser");
+        User user2 = new User("SecondTestUSer");
 
         team1.addUser(user1);
         team1.addUser(user2);
@@ -120,6 +116,9 @@ class Application {
 
         Expense expense2 = new Expense(100.0, "Stationery", "22/10/21", user2);
         app.recordExpense(expense2);
+
+        Menu homeMenu = new Menu();
+        homeMenu.createHomeMenu();
 
         budget.printExpenses();
 
