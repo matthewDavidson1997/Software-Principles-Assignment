@@ -1,6 +1,7 @@
 package expense_system;
+import java.io.*;
+import java.util.*;
 
-import java.util.List;
 
 public class Menu {
     
@@ -30,6 +31,7 @@ public class Menu {
         System.out.println("|  2. About                                             |"); 
         System.out.println("|  3. Help Guide                                        |"); 
         System.out.println(" -------------------------------------------------------\n");
+        scanUsersCSV();
         do{
             Application app = new Application();
             int userChoice = app.takeUserChoice();
@@ -92,15 +94,15 @@ public class Menu {
     public void createLoggedInMenu() {
         clearScreen();
         Application app = new Application();
-        /*Budget budget = team1.getBudget();
+        Budget budget = team1.getBudget();
         User currentUser = app.getCurrentUser();
         String currentUserTeam = app.findTeam(currentUser);
-        */
+        
         System.out.println(" -------------------------------------------------------");
         System.out.println("|  feel good fund system                                |");
         System.out.println("|                                                       |"); 
-        System.out.println(   "|  Username:               " + currentUser + "          |");
-        System.out.println(   "|  Team:                   " + currentUserTeam + "      |");
+        System.out.println(   "|  Username:               " + currentUser + "                             |");
+        System.out.println(   "|  Team:                   " + currentUserTeam + "                             |");
         System.out.println(   "|  Remaining Team Balance: " + budget + "               |");
         System.out.println(" -------------------------------------------------------");
 
@@ -122,6 +124,43 @@ public class Menu {
         System.out.println("|  4. Log out                                           |");
         System.out.println(" -------------------------------------------------------\n");
         int userChoice = app.takeUserChoice();
+    }
+
+    public void scanUsersCSV() {
+        String filepath = "Users.csv";
+        BufferedReader reader = null;
+        String line = "";
+        List<String> usernameRow = new ArrayList<String>();
+        List<String> passwordRow = new ArrayList<String>();
+        List<String> teamRow = new ArrayList<String>();
+
+        try {
+            reader = new BufferedReader(new FileReader(filepath));
+            while((line = reader.readLine()) != null) {
+                String[] row = line.split(",");
+                usernameRow.add(row[0]);
+                passwordRow.add(row[1]);
+                teamRow.add(row[2]);
+                
+                for(String index : row) {
+                    //System.out.printf("%-10s", index);
+                    //System.out.println(row[0]);
+                }
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(usernameRow);
+        System.out.println(passwordRow);
+        System.out.println(teamRow);
     }
  
 }

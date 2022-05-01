@@ -20,6 +20,7 @@ public class Team {
     // methods
     public void addUser(User user) {
         this.users.add(user);
+        user.setTeam(this);
     }
 
     public String getTeamName() {

@@ -41,8 +41,8 @@ class Application {
     }
 
     public void validateUser(String userName, String password) {
-        
-        if (userName.equals("TestUser") && password.equals("password")) {
+
+       if (userName.equals("TestUser") && password.equals("password")) {
             System.out.print("Login successful\n\n");
             setCurrentUser(userName);
             userValidated = true;
@@ -50,7 +50,7 @@ class Application {
             System.out.println("Login unsuccessful, please enter valid credentials.");
             userValidated = false;
         }
-    }
+    } 
 
     public int takeUserChoice(){
         Scanner scanner = new Scanner(System.in);
