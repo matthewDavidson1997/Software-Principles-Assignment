@@ -7,6 +7,11 @@ public class Menu {
     
     boolean validChoice = false;
 
+    String deliminatorLine = " ------------------------------------------------------";
+    String blankLine = "|                                                      |";
+    String startTextLine = "| ";
+    String endTextLine = "|";
+
     public static void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
@@ -20,18 +25,23 @@ public class Menu {
         this.createLoginMenu();
     }
 
+    public String padString(String string, int n){
+        return String.format("%-" + n + "s", string);
+        
+    }
+
     public void createHomeMenu(){
         clearScreen();
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  feel good fund management system                     |");
-        System.out.println("|                                                       |"); 
-        System.out.println("|  Where would you like to go?                          |");
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  1. Login                                             |"); 
-        System.out.println("|  2. About                                             |"); 
-        System.out.println("|  3. Help Guide                                        |"); 
-        System.out.println(" -------------------------------------------------------\n");
-        scanUsersCSV();
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("feel good fund management system", 53) + endTextLine);
+        System.out.println(blankLine); 
+        System.out.println(startTextLine + padString("Where would you like to go?", 53) + endTextLine);
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("1. Login", 53) + endTextLine); 
+        System.out.println(startTextLine + padString("2. About", 53) + endTextLine); 
+        System.out.println(startTextLine + padString("3. Help Guide", 53) + endTextLine); 
+        System.out.println(deliminatorLine + "\n");
+        User.scanUsersCSV();
         do{
             Application app = new Application();
             int userChoice = app.takeUserChoice();
@@ -46,16 +56,16 @@ public class Menu {
                 default: System.out.println("Invalid choice");
             }
         }
-        while (validChoice == false);
+        while (!validChoice);
     }
 
     public void createLoginMenu(){
         clearScreen();
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  feel good fund system                                |");
-        System.out.println("|                                                       |"); 
-        System.out.println("|  Please enter your username and password to continue  |");
-        System.out.println(" -------------------------------------------------------\n\n");
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("feel good fund system", 53) + endTextLine);
+        System.out.println(blankLine); 
+        System.out.println(startTextLine + padString("Please enter your username and password to continue", 53) + endTextLine);
+        System.out.println(deliminatorLine + "\n");
         Application app = new Application();
         app.takeUserCredentials();
         createLoggedInMenu();
@@ -63,25 +73,25 @@ public class Menu {
 
     public void createAboutMenu(){
         clearScreen();
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  feel good fund system                                |");
-        System.out.println("|                                                       |"); 
-        System.out.println("|  Redgate has always looked after its employees.       |");
-        System.out.println("|  As such a 'Feel Good Fund' was established which     |");
-        System.out.println("|  is money set aside for each team to do social        |");
-        System.out.println("|  activities together and reclaim their expenses.      |");
-        System.out.println("|                                                       |");
-        System.out.println("|  This platform allows each team to track their        |");
-        System.out.println("|  budget, seeing remaining budget, track expenses,     |");
-        System.out.println("|  and submitting new expenses.                         |");
-        System.out.println("|                                                       |");
-        System.out.println("|  It does not act as a replacement to the usual        |");
-        System.out.println("|  process of expenses to claim back money spent.       |");
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  Where would you like to go?                          |");
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  1. Home                                              |"); 
-        System.out.println(" -------------------------------------------------------\n");
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("feel good fund system", 53) + endTextLine);
+        System.out.println(blankLine); 
+        System.out.println(startTextLine + padString("Redgate has always looked after its employees.", 53) + endTextLine);
+        System.out.println(startTextLine + padString("As such a 'Feel Good Fund' was established which", 53) + endTextLine);
+        System.out.println(startTextLine + padString("is money set aside for each team to do social", 53) + endTextLine);
+        System.out.println(startTextLine + padString("activities together and reclaim their expenses.", 53) + endTextLine);
+        System.out.println(blankLine);
+        System.out.println(startTextLine + padString("This platform allows each team to track their", 53) + endTextLine);
+        System.out.println(startTextLine + padString("budget, seeing remaining budget, track expenses,", 53) + endTextLine);
+        System.out.println(startTextLine + padString("and submitting new expenses.", 53) + endTextLine);
+        System.out.println(blankLine);
+        System.out.println(startTextLine + padString("It does not act as a replacement to the usual", 53) + endTextLine);
+        System.out.println(startTextLine + padString("process of expenses to claim back money spent.", 53) + endTextLine);
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine  + padString("Where would you like to go?", 53) + endTextLine);
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("1. Home", 53) + endTextLine); 
+        System.out.println(deliminatorLine + "\n");
         Application app = new Application();
         int userChoice = app.takeUserChoice();
         switch (userChoice) {
@@ -94,73 +104,52 @@ public class Menu {
     public void createLoggedInMenu() {
         clearScreen();
         Application app = new Application();
-        Budget budget = team1.getBudget();
-        User currentUser = app.getCurrentUser();
-        String currentUserTeam = app.findTeam(currentUser);
+        //Budget budget = team1.getBudget();
+        //User currentUser = app.getCurrentUser();
+        //String currentUserTeam = app.findTeam(currentUser);
         
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  feel good fund system                                |");
-        System.out.println("|                                                       |"); 
-        System.out.println(   "|  Username:               " + currentUser + "                             |");
-        System.out.println(   "|  Team:                   " + currentUserTeam + "                             |");
-        System.out.println(   "|  Remaining Team Balance: " + budget + "               |");
-        System.out.println(" -------------------------------------------------------");
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("feel good fund system", 53) + endTextLine);
+        System.out.println(blankLine); 
+        System.out.println(startTextLine + "Username:               " + padString(app.currentUser, 29) + endTextLine);
+        System.out.println(startTextLine + "Team:                   " + padString("", 29) + endTextLine);
+        System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 29) + endTextLine);
+        System.out.println(deliminatorLine);
 
             // for i in expenses print i
 
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println("|                                                       |");
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  Where would you like to go?                          |");
-        System.out.println(" -------------------------------------------------------");
-        System.out.println("|  1. Enter Expense                                     |"); 
-        System.out.println("|  2. Help Guide                                        |");
-        System.out.println("|  3. Options                                           |");
-        System.out.println("|  4. Log out                                           |");
-        System.out.println(" -------------------------------------------------------\n");
-        int userChoice = app.takeUserChoice();
-    }
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("Where would you like to go?", 53) + endTextLine);
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("1. Create Expense", 53) + endTextLine); 
+        System.out.println(startTextLine + padString("2. Help Guide", 53) + endTextLine);
+        System.out.println(startTextLine + padString("3. Options", 53) + endTextLine);
+        System.out.println(startTextLine + padString("4. Log out", 53) + endTextLine);
+        System.out.println(deliminatorLine + "\n");
+        do{
+            int userChoice = app.takeUserChoice();
 
-    public void scanUsersCSV() {
-        String filepath = "Users.csv";
-        BufferedReader reader = null;
-        String line = "";
-        List<String> usernameRow = new ArrayList<String>();
-        List<String> passwordRow = new ArrayList<String>();
-        List<String> teamRow = new ArrayList<String>();
-
-        try {
-            reader = new BufferedReader(new FileReader(filepath));
-            while((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
-                usernameRow.add(row[0]);
-                passwordRow.add(row[1]);
-                teamRow.add(row[2]);
-                
-                for(String index : row) {
-                    //System.out.printf("%-10s", index);
-                    //System.out.println(row[0]);
-                }
+            switch (userChoice) {
+                case 1: System.out.println("Create Expense selected");
+                        break;
+                case 2: System.out.println("Help Guide selected");
+                        break;
+                case 3: System.out.println("Options selected");
+                        break;
+                case 4: createHomeMenu();
+                default: System.out.println("Invalid choice");
             }
         }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println(usernameRow);
-        System.out.println(passwordRow);
-        System.out.println(teamRow);
+        while (!validChoice);
     }
+
+    
  
 }

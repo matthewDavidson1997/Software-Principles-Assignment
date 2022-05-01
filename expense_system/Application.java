@@ -11,7 +11,7 @@ class Application {
     private List<Team> teams;
 
     boolean userValidated = false;
-    String currentUser;
+    public static String currentUser;
 
     // constructor
     public Application() {
@@ -33,7 +33,7 @@ class Application {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please enter your username: ");
             String userName = scanner.nextLine();
-            System.out.println("Please Enter your password: ");
+            System.out.println("Please enter your password: ");
             String password = scanner.nextLine();
             validateUser(userName, password);
         }
@@ -42,14 +42,25 @@ class Application {
 
     public void validateUser(String userName, String password) {
 
-       if (userName.equals("TestUser") && password.equals("password")) {
-            System.out.print("Login successful\n\n");
-            setCurrentUser(userName);
-            userValidated = true;
-        } else {
-            System.out.println("Login unsuccessful, please enter valid credentials.");
-            userValidated = false;
+        for (int i = 1; i < User.users.size() + 1; i++) {
+
+            if (userName.equals(User.usernameRow.get(i).toString())) {
+                System.out.println("Username matches");
+                
+                if (password.equals(User.passwordRow.get(i))) {
+                    System.out.println("Username and password match");
+                    System.out.print("Login successful\n\n");
+                    currentUser = userName;
+                    System.out.println(currentUser);
+                    userValidated = true;
+                    break;
+                }
+                
+            }
+            
         }
+        System.out.println("Username or password is incorrect, try again.");
+
     } 
 
     public int takeUserChoice(){
@@ -105,17 +116,7 @@ class Application {
         Budget budget = team1.getBudget();
         budget.addFunds(100);
 
-        User user1 = new User("TestUser");
-        User user2 = new User("SecondTestUSer");
-
-        team1.addUser(user1);
-        team1.addUser(user2);
-
-        Expense expense1 = new Expense(250.0, "Dinner", "20/10/21", user1);
-        app.recordExpense(expense1);
-
-        Expense expense2 = new Expense(100.0, "Stationery", "22/10/21", user2);
-        app.recordExpense(expense2);
+        
 
         Menu homeMenu = new Menu();
         homeMenu.createHomeMenu();
