@@ -66,7 +66,7 @@ public class Expense {
                 
                 for(String index : row) {
                     //System.out.printf("%-10s", index);
-                    System.out.println(row[0]);
+                    //System.out.println(row[0]);
                 }
             }
         }
@@ -82,7 +82,7 @@ public class Expense {
         }
         // add users to list while constructing
         
-        for (int i = 1; i < amountRow.size(); i++) {
+        for (int i = 2; i < amountRow.size(); i++) {
 
             Expense newExpense = new Expense(Double.valueOf(amountRow.get(i)), descriptionRow.get(i), dateRow.get(i), userRow.get(i));
             expenses.add(newExpense);

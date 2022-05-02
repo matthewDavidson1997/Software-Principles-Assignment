@@ -28,13 +28,17 @@ class Application {
         return currentUser;
     }
 
+    public String takeUserInput(String message) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        return scanner.nextLine();
+    }
+
     public void takeUserCredentials(){
         do {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Please enter your username: ");
-            String userName = scanner.nextLine();
-            System.out.println("Please enter your password: ");
-            String password = scanner.nextLine();
+            String userName = takeUserInput("Please enter your username: ");
+            String password = takeUserInput("Please enter your password: ");
+
             validateUser(userName, password);
         }
         while (!userValidated);
