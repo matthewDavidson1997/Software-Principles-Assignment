@@ -110,6 +110,8 @@ class Application {
     public static void main(String[] args) throws ParseException {
 
         Application app = new Application();
+        User.scanUsersCSV();
+        Expense.scanExpensesCSV();
 
         Team team1 = new Team("Team 1", 1000.0);
         app.addTeam(team1);
@@ -121,10 +123,7 @@ class Application {
         Menu homeMenu = new Menu();
         homeMenu.createHomeMenu();
 
-        budget.printExpenses();
-
-        System.out.println(team1.getTeamName() + " " + team1.getBudget());
-        System.out.println(team1.getUsers());
+ 
 
         
         

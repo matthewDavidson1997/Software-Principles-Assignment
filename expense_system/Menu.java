@@ -41,7 +41,7 @@ public class Menu {
         System.out.println(startTextLine + padString("2. About", 53) + endTextLine); 
         System.out.println(startTextLine + padString("3. Help Guide", 53) + endTextLine); 
         System.out.println(deliminatorLine + "\n");
-        User.scanUsersCSV();
+        
         do{
             Application app = new Application();
             int userChoice = app.takeUserChoice();
@@ -117,14 +117,9 @@ public class Menu {
         System.out.println(deliminatorLine);
 
             // for i in expenses print i
-
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
-        System.out.println(startTextLine + padString("", 53) + endTextLine);
+        for (int i = 0; i < Expense.amountRow.size(); i++) {
+            System.out.print(startTextLine + padString(Expense.amountRow.get(i).toString(), 13) + padString(Expense.descriptionRow.get(i), 13) + padString(Expense.dateRow.get(i), 13) + padString(Expense.userRow.get(i), 14) + endTextLine +"\n");
+        }
         System.out.println(deliminatorLine);
         System.out.println(startTextLine + padString("Where would you like to go?", 53) + endTextLine);
         System.out.println(deliminatorLine);
@@ -138,6 +133,7 @@ public class Menu {
 
             switch (userChoice) {
                 case 1: System.out.println("Create Expense selected");
+                        createCreateExpenseMenu();
                         break;
                 case 2: System.out.println("Help Guide selected");
                         break;
@@ -149,7 +145,23 @@ public class Menu {
         }
         while (!validChoice);
     }
+    public void createCreateExpenseMenu() {
+        clearScreen();
+        Application app = new Application();
+        //Budget budget = team1.getBudget();
+        //User currentUser = app.getCurrentUser();
+        //String currentUserTeam = app.findTeam(currentUser);
+        
+        System.out.println(deliminatorLine);
+        System.out.println(startTextLine + padString("feel good fund system", 53) + endTextLine);
+        System.out.println(blankLine); 
+        System.out.println(startTextLine + "Username:               " + padString(app.currentUser, 29) + endTextLine);
+        System.out.println(startTextLine + "Team:                   " + padString("", 29) + endTextLine);
+        System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 29) + endTextLine);
+        System.out.println(deliminatorLine);
 
+
+    }
     
  
 }
