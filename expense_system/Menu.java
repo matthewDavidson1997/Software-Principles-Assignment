@@ -44,6 +44,7 @@ public class Menu {
         System.out.println(startTextLine + padString("3. Help Guide", 68) + endTextLine); 
         System.out.println(deliminatorLine + "\n");
         
+        
         do{
             
             int userChoice = app.takeUserChoice();
@@ -117,7 +118,7 @@ public class Menu {
         System.out.println(deliminatorLine);
         System.out.println(startTextLine  + padString("Where would you like to go?", 68) + endTextLine);
         System.out.println(deliminatorLine);
-        System.out.println(startTextLine + padString("1. Back", 68) + endTextLine); 
+        System.out.println(startTextLine + padString("1. " + goBackTo, 68) + endTextLine); 
         System.out.println(deliminatorLine + "\n");
         
         int userChoice = app.takeUserChoice();
@@ -142,7 +143,7 @@ public class Menu {
         System.out.println(startTextLine + padString("feel good fund system", 68) + endTextLine);
         System.out.println(blankLine); 
         System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 44) + endTextLine);
-        System.out.println(startTextLine + "Team:                   " + padString("", 44) + endTextLine);
+        System.out.println(startTextLine + "Team:                   " + padString(User.getUserTeam(Application.currentUser), 44) + endTextLine);
         System.out.println(startTextLine + "Remaining Team Balance: " + padString("", 44) + endTextLine);
         System.out.println(deliminatorLine);
 
@@ -164,7 +165,7 @@ public class Menu {
             switch (userChoice) {
                 case 1: createCreateExpenseMenu();
                         break;
-                case 2: createHelpGuideMenu("LoggedIn");
+                case 2: createHelpGuideMenu("View Expenses");
                         break;
                 case 3: System.out.println("Options selected");
                         break;
@@ -181,9 +182,9 @@ public class Menu {
         System.out.println(deliminatorLine);
         System.out.println(startTextLine + padString("feel good fund system", 68) + endTextLine);
         System.out.println(blankLine); 
-        System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 29) + endTextLine);
-        System.out.println(startTextLine + "Team:                   " + padString("", 29) + endTextLine);
-        System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 29) + endTextLine);
+        System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 44) + endTextLine);
+        System.out.println(startTextLine + "Team:                   " + padString("", 44) + endTextLine);
+        System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 44) + endTextLine);
         System.out.println(deliminatorLine);
 
         String expenseAmount = app.takeUserInput("Enter expense amount: ");

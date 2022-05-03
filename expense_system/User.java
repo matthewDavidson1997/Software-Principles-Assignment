@@ -27,8 +27,15 @@ public class User {
         return this.userName;
     }
 
-    public Team getTeam() {
-        return this.team;
+    public static String getUserTeam(String user) {
+        for (int i = 0; i < usernameRow.size(); i++) {
+            if (user.equals(usernameRow.get(i))) {
+                return teamRow.get(i);
+            }
+            else {
+                System.out.println("Team not found.")
+            }
+        }
     }
 
     public String getPassword() {
@@ -79,6 +86,7 @@ public class User {
         }
        
     }
+
  
 
 }
