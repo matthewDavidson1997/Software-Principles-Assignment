@@ -32,10 +32,8 @@ public class User {
             if (user.equals(usernameRow.get(i))) {
                 return teamRow.get(i);
             }
-            else {
-                System.out.println("Team not found.")
-            }
         }
+        return user;
     }
 
     public String getPassword() {

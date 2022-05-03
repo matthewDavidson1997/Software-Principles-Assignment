@@ -183,7 +183,7 @@ public class Menu {
         System.out.println(startTextLine + padString("feel good fund system", 68) + endTextLine);
         System.out.println(blankLine); 
         System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 44) + endTextLine);
-        System.out.println(startTextLine + "Team:                   " + padString("", 44) + endTextLine);
+        System.out.println(startTextLine + "Team:                   " + padString(User.getUserTeam(Application.currentUser), 44) + endTextLine);
         System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 44) + endTextLine);
         System.out.println(deliminatorLine);
 
