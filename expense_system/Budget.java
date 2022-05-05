@@ -3,6 +3,10 @@ package expense_system;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Budget class records the current status of a Team's budget - recording the initial amount,
+ * and details of recorded expenses that users make.
+ */
 public class Budget {
 
     // fields

@@ -3,6 +3,9 @@ package expense_system;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Team class keeps a record of the users in the team, the team's budget, and the team name.
+ */
 public class Team {
 
     // fields

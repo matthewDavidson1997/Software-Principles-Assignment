@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.util.*;
 
 
+/**
+ * The Menu class provides interface components for the User to interact with in the main Application. 
+ */
 public class Menu {
     
     boolean validChoice = false;

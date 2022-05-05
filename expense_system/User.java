@@ -3,6 +3,9 @@ import java.io.*;
 import java.util.*;
 
 
+/**
+ * The User class stores key information about the users in the system.
+ */
 public class User {
 
     // fields

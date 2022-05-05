@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The Expense class records the details of an expense that a User makes against the user's
+ * Team budget.
+ */
 public class Expense {
 
     // fields

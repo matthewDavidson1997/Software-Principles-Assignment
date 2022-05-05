@@ -6,6 +6,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Application class provides an interface for users to interact with the expense system.
+ */
 class Application {
     // fields
     private List<Team> teams;
