@@ -26,6 +26,7 @@ public class Expense {
     public Expense(double amount, String description, String dateString, User user) throws ParseException {
         this.amount = amount;
         this.description = description;
+        // A simple formatter to convert string date into Date
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
         this.date = formatter.parse(dateString);
         this.user = user;
