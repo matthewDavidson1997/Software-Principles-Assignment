@@ -23,12 +23,12 @@ public class Expense {
     public static List<Expense> expenses = new ArrayList<Expense>();
 
     // constructor
-    public Expense(double amount, String description, String dateString, String user) throws ParseException {
+    public Expense(double amount, String description, String dateString, User user) throws ParseException {
         this.amount = amount;
         this.description = description;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
         this.date = formatter.parse(dateString);
-        this.user = new User(user, User.password, "Team1");
+        this.user = user;
     }
 
     // methods
