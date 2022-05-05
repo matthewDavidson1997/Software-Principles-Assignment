@@ -7,6 +7,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Team class keeps a record of the users in the team, the team's budget, and the team name.
+ */
 public class Team {
 
     // fields
@@ -17,75 +20,38 @@ public class Team {
     public static List<Double> budgetRow = new ArrayList<Double>();
     public static List<Team> teams = new ArrayList<Team>();
 
-    // constructor
+    // CONSTRUCTOR
     public Team(String name, double budget) {
         this.teamName = name;
         this.budget = new Budget(budget);
-        
+        this.users = new ArrayList<>();
     }
 
-    // methods
-    public void addUser(User user) {
-        this.users.add(user);
-        //user.setTeam(this);
-    }
-
-    public String getTeamName() {
-        return this.teamName;
-    }
-
-    public static String getTeamBudget(String team) {
-        for (int i = 0; i < teamRow.size(); i++) {
-            if (team.equals(teamRow.get(i))) {
-                return budgetRow.get(i).toString();
-                
-            }
-        }
-        return "Not Found";
-    }
-
-    public List<User> getUsers() {
-        return this.users;
-    }
-
+    // METHODS
+    // to string
     public String toString() {
         return this.teamName;
     }
 
-    public static void scanExpensesCSV() throws NumberFormatException, ParseException {
-        String filepath = "Teams.csv";
-        BufferedReader reader = null;
-        String line = "";
-        
+    // getters
+    public String getTeamName() {
+        return this.teamName;
+    }
+    public Budget getBudget() {
+        return this.budget;
+    }
+    public List<User> getUsers() {
+        return this.users;
+    }
+    
+    // other methods
 
-        try {
-            reader = new BufferedReader(new FileReader(filepath));
-            while((line = reader.readLine()) != null) {
-                //System.out.println(line);
-                String[] row = line.split(",");
-                teamRow.add(row[0]);
-                budgetRow.add(Double.valueOf(row[1]));
-                
-
-            }
+    //A method to record a user as being a member of the team.
+    public void addUser(User user) {
+        // We check that the user instance was constructed with a reference to this team
+        // before adding it to the list (there must be a better way of doing this??)
+        if (user.getTeam() == this) {
+            this.users.add(user);
         }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        // add users to list while constructing
-        
-        for (int i = 2; i < teamRow.size(); i++) {
-
-            Team newTeam = new Team(teamRow.get(i), Double.valueOf(budgetRow.get(i)));
-            teams.add(newTeam);
-        }
-        
     }
 }
