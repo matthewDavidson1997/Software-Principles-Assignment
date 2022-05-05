@@ -13,32 +13,38 @@ public class Team {
     private Budget budget;
     private List<User> users;
 
-    // constructor
+    // CONSTRUCTOR
     public Team(String name, double budget) {
         this.teamName = name;
         this.budget = new Budget(budget);
-        
+        this.users = new ArrayList<>();
     }
 
-    // methods
-    public void addUser(User user) {
-        this.users.add(user);
-        //user.setTeam(this);
+    // METHODS
+    // to string
+    public String toString() {
+        return this.teamName;
     }
 
+    // getters
     public String getTeamName() {
         return this.teamName;
     }
-
     public Budget getBudget() {
         return this.budget;
     }
-
     public List<User> getUsers() {
         return this.users;
     }
+    
+    // other methods
 
-    public String toString() {
-        return this.teamName;
+    //A method to record a user as being a member of the team.
+    public void addUser(User user) {
+        // We check that the user instance was constructed with a reference to this team
+        // before adding it to the list (there must be a better way of doing this??)
+        if (user.getTeam() == this) {
+            this.users.add(user);
+        }
     }
 }
