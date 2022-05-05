@@ -113,24 +113,12 @@ class Application {
 
     public static void main(String[] args) throws ParseException {
 
-        Application app = new Application();
         User.scanUsersCSV();
         Expense.scanExpensesCSV();
-
-        Team team1 = new Team("Team 1", 1000.0);
-        app.addTeam(team1);
-        Budget budget = team1.getBudget();
-        budget.addFunds(100);
-
-        
 
         Menu homeMenu = new Menu();
         homeMenu.createHomeMenu();
 
- 
-
-        
-        
 
     }
 }

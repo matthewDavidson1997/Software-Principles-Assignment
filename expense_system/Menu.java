@@ -144,7 +144,7 @@ public class Menu {
         System.out.println(blankLine); 
         System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 44) + endTextLine);
         System.out.println(startTextLine + "Team:                   " + padString(User.getUserTeam(Application.currentUser), 44) + endTextLine);
-        System.out.println(startTextLine + "Remaining Team Balance: " + padString("", 44) + endTextLine);
+        System.out.println(startTextLine + "Remaining Team Balance: " + padString(Team.getTeamBudget(User.getUserTeam(Application.currentUser)), 44) + endTextLine);
         System.out.println(deliminatorLine);
 
             // for i in expenses print i
@@ -184,7 +184,7 @@ public class Menu {
         System.out.println(blankLine); 
         System.out.println(startTextLine + "Username:               " + padString(Application.currentUser, 44) + endTextLine);
         System.out.println(startTextLine + "Team:                   " + padString(User.getUserTeam(Application.currentUser), 44) + endTextLine);
-        System.out.println(startTextLine + "Remaining Team Balance: " +padString("", 44) + endTextLine);
+        System.out.println(startTextLine + "Remaining Team Balance: " + padString(Team.getTeamBudget(User.getUserTeam(Application.currentUser)).toString(), 44) + endTextLine);
         System.out.println(deliminatorLine);
 
         String expenseAmount = app.takeUserInput("Enter expense amount: ");
