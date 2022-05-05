@@ -9,9 +9,9 @@ import java.util.*;
 public class User {
 
     // fields
-    public static String userName;
-    public static String password;
-    public static Team team;
+    private String userName;
+    private String password;
+    private Team team;
     public static List<String> usernameRow = new ArrayList<String>();
     public static List<String> passwordRow = new ArrayList<String>();
     public static List<String> teamRow = new ArrayList<String>();
