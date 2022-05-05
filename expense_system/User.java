@@ -4,84 +4,44 @@ import java.util.*;
 
 
 /**
- * The User class stores key information about the users in the system.
+ * The User class stores key information about a user in the system.
  */
 public class User {
 
-    // fields
-    private String userName;
+    // FIELDS
+    private String username;
     private String password;
     private Team team;
-    public static List<String> usernameRow = new ArrayList<String>();
-    public static List<String> passwordRow = new ArrayList<String>();
-    public static List<String> teamRow = new ArrayList<String>();
-    public static List<User> users = new ArrayList<User>();
-    
 
-    // constructor
-    public User(String userName, String password, String team) {
-        this.userName = userName;
+    // CONSTRUCTOR
+    public User(String username, String password, Team team) {
+        this.username = username;
         this.password = password;
-        this.team = new Team(team, 0.0);
+        // Add a record of the team to the user
+        this.team = team;
+        // Add a record of the user to the team
+        team.addUser(this);
     }
 
-    // methods
+    // METHODS
+    // to string
     public String toString() {
-        return this.userName;
+        return this.username;
     }
 
+    // getters
     public Team getTeam() {
         return this.team;
     }
-
     public String getPassword() {
         return this.password;
     }
-
     public String getUsername() {
-        return this.userName; 
+        return this.username; 
     }
 
-    public static void scanUsersCSV() {
-        String filepath = "Users.csv";
-        BufferedReader reader = null;
-        String line = "";
-        
-
-        try {
-            reader = new BufferedReader(new FileReader(filepath));
-            while((line = reader.readLine()) != null) {
-                //System.out.println(line);
-                String[] row = line.split(",");
-                usernameRow.add(row[0]);
-                passwordRow.add(row[1]);
-                teamRow.add(row[2]);
-                
-                for(String index : row) {
-                    //System.out.printf("%-10s", index);
-                    //System.out.println(row[0]);
-                }
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        // add users to list while constructing
-        
-        for (int i = 1; i < usernameRow.size(); i++) {
-
-            User newUser = new User(usernameRow.get(i), passwordRow.get(i), teamRow.get(i));
-            users.add(newUser);
-        }
-       
+    // setters
+    public void setPassword(String password) {
+        this.password = password;
     }
- 
-
 }
