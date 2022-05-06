@@ -1,7 +1,9 @@
 package expense_system;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * The CsvReader class holds .csv file header and row data.
  */
-public class CsvReader {
+public class Csv {
     
     // FIELDS
     private String filepath;
@@ -18,7 +20,7 @@ public class CsvReader {
     private List<String[]> data = new ArrayList<>();
 
     // CONSTRUCTOR
-    public CsvReader(String filepath) throws IOException {
+    public Csv(String filepath) throws IOException {
         this.filepath = filepath;
         scanCsv(filepath);
     }
@@ -34,6 +36,11 @@ public class CsvReader {
     }
     public List<String[]> getData() {
         return this.data;
+    }
+
+    // setters
+    public void setData(List<String[]> data) {
+        this.data = data;
     }
     
     // other methods
@@ -79,11 +86,42 @@ public class CsvReader {
         }
     }
 
+    // A method to write to a file
+    // If we write to an existing file, then the file will be overwritten unless the FileWriter
+    // 'append' flag is set to true
+    public void writeCsv(String filepath) throws IOException {
+
+        BufferedWriter writer = null;
+        String line = "";
+        
+        try {
+            writer = new BufferedWriter(new FileWriter(filepath));
+            
+            // Write the header
+            line = String.join(",", this.header);
+            writer.write(line);
+            writer.newLine();
+
+            // Iterate over the data rows
+            for (String[] dataElements : this.data) {
+                line = String.join(",", dataElements);
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            writer.close();
+        }
+    }
+
     // A method to demonstrate usage
     public static void main(String[] args) throws IOException {
 
         // Demonstrate making a new CsvReader object
-        CsvReader csv  = new CsvReader("Teams.csv");
+        Csv csv  = new Csv("Teams.csv");
         // Print the instance's path
         System.out.println(csv.getFilepath());
         // Print the header data
@@ -93,5 +131,4 @@ public class CsvReader {
             System.out.println(Arrays.toString(dataRow));
         }
     }
-
 }
