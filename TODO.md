@@ -2,7 +2,7 @@
 * [x] Reset `currentUser` to `null`, and `userValidated` to `false` when user logs-out
 * [x] Add method in `Csv` class to write rows of data when entered via the `Application`
 * [ ] Add 'database' .csv files to 'database' folder
-* [ ] Add project README.md
+* [x] Add project README.md
 * [x] Add 'Change Password' option to LoggedInMenu
 * [ ] Add 'Add Funds' action(?)
 * [x] Add 'Add User' action(?)
