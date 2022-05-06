@@ -1,5 +1,9 @@
 package expense_system;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,9 @@ public class Team {
     private String teamName;
     private Budget budget;
     private List<User> users;
+    public static List<String> teamRow = new ArrayList<String>();
+    public static List<Double> budgetRow = new ArrayList<Double>();
+    public static List<Team> teams = new ArrayList<Team>();
 
     // CONSTRUCTOR
     public Team(String name, double budget) {

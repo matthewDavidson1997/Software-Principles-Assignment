@@ -65,6 +65,7 @@ public class Menu {
         printInfoLine("4. Quit", 68);
         System.out.println(DELIMITOR_LINE + "\n");
         
+        
         do{
             int userChoice = this.app.takeUserChoice();
             switch (userChoice) {
