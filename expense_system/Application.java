@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//      MOD003484 - Assignment 011 (element design and implementation)       //
+//                                                                           //
+//      SID:                    2011781                                      //
+//      Team for element 10:    The Holla Scholars                           //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
 package expense_system;
 
 import java.io.IOException;
