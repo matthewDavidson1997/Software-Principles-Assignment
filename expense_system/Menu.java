@@ -1,5 +1,6 @@
 package expense_system;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Menu {
     private boolean validChoice;
 
     // CONSTRUCTOR
-    public Menu(Application app) throws NumberFormatException, ParseException {
+    public Menu(Application app) throws NumberFormatException, ParseException, IOException {
         this.app = app;
         this.validChoice = false;
         this.createHomeMenu();
@@ -51,7 +52,7 @@ public class Menu {
     }
 
     // Create the Home menu
-    private void createHomeMenu() throws NumberFormatException, ParseException{
+    private void createHomeMenu() throws NumberFormatException, ParseException, IOException{
         clearScreen();  //cls
         System.out.println(DELIMITOR_LINE);  // delimitor
         printInfoLine(PRODUCT_NAME, 68);
@@ -73,7 +74,9 @@ public class Menu {
                         break;
                 case 3: createHelpGuideMenu("Home");
                         break;
-                case 4: quitApp();
+                // Quiting will write CSV data back to files
+                case 4: this.app.writeBackToFiles();
+                        quitApp();
                         break;
                 default: System.out.println(INVALID_CHOICE_TEXT);
             }
@@ -82,7 +85,7 @@ public class Menu {
     }
 
     // Create the Login menu
-    private void createLoginMenu() throws NumberFormatException, ParseException{
+    private void createLoginMenu() throws NumberFormatException, ParseException, IOException{
         clearScreen();  // cls
         System.out.println(DELIMITOR_LINE);  // delimitor
         printInfoLine(PRODUCT_NAME, 68);
@@ -98,7 +101,7 @@ public class Menu {
     }
 
     // Create the About menu
-    private void createAboutMenu() throws NumberFormatException, ParseException{
+    private void createAboutMenu() throws NumberFormatException, ParseException, IOException{
         clearScreen();
         System.out.println(DELIMITOR_LINE);
         printInfoLine(PRODUCT_NAME, 68);
@@ -129,7 +132,7 @@ public class Menu {
     }
 
     // Create the Help menu
-    public void createHelpGuideMenu(String goBackTo) throws NumberFormatException, ParseException{
+    public void createHelpGuideMenu(String goBackTo) throws NumberFormatException, ParseException, IOException{
         clearScreen();
         System.out.println(DELIMITOR_LINE);
         printInfoLine(PRODUCT_NAME, 68);
@@ -158,32 +161,34 @@ public class Menu {
         }
     }
 
-    // Create the Logged-In menu
-    private void createLoggedInMenu() throws NumberFormatException, ParseException {
-        // Clear the screen
-        clearScreen();
-
-        // Info we will use on page
-        User user = this.app.getCurrentUser();
-        String username = user.getUsername();
-        Team team = user.getTeam();
-        String teamName = team.getTeamName();
-        Budget budget = team.getBudget();
-        List<Expense> teamExpenses = budget.getExpenses();
-        Double balance = budget.getCurrentAmount();
+    // Show logged-in header
+    private void showLoggedInHeader() {
+        // Clear the screan
+        clearScreen();  
+        // Info we need
+        String username = this.app.getCurrentUser().getUsername();
+        String teamName = this.app.getCurrentUser().getTeam().getTeamName();
+        Double balance = this.app.getCurrentUser().getTeam().getBudget().getCurrentAmount();
         String stringBalance = Double.toString(balance);
-
         // Populate menu header
         System.out.println(DELIMITOR_LINE);
         printInfoLine(PRODUCT_NAME, 68);
-        System.out.println(BLANK_LINE);
+        System.out.println(BLANK_LINE); 
         printInfoLine("Username:               " + username, 68);
         printInfoLine("Team:                   " + teamName, 68);
         printInfoLine("Remaining Team Balance: " + stringBalance, 68);
         System.out.println(DELIMITOR_LINE);
-
+    }
+    
+    // Create the Logged-In menu
+    private void createLoggedInMenu() throws NumberFormatException, ParseException, IOException {
+        // Show header
+        this.showLoggedInHeader();
+        // Info we need
+        List<Expense> expenses = this.app.getCurrentUser().getTeam().getBudget().getExpenses();
+        String username = this.app.getCurrentUser().getUsername();
         // Show Team Expenses
-        for (Expense expense : teamExpenses) {
+        for (Expense expense : expenses) {
             String stringAmount = Double.toString(expense.getAmount());
             String description = expense.getDescription();
             String stringDate = expense.getDateAsString();
@@ -194,9 +199,10 @@ public class Menu {
         printInfoLine("Where would you like to go?", 68);
         System.out.println(DELIMITOR_LINE);
         printInfoLine("1. Create Expense", 68);
-        printInfoLine("2. Help Guide", 68);
-        printInfoLine("3. Options", 68);
-        printInfoLine("4. Log out", 68);
+        printInfoLine("2. Create New User", 68);
+        printInfoLine("3. Change Password", 68);
+        printInfoLine("4. Help Guide", 68);
+        printInfoLine("5. Log out", 68);
         System.out.println(DELIMITOR_LINE + "\n");
 
         do{
@@ -205,12 +211,16 @@ public class Menu {
             switch (userChoice) {
                 case 1: this.createCreateExpenseMenu();
                         break;
-                case 2: this.createHelpGuideMenu("LoggedIn");
+                case 2: this.createCreateNewUserMenu();
                         break;
-                case 3: System.out.println("Options selected");
+                case 3: this.createChangePasswordMenu();
+                        break;
+                case 4: this.createHelpGuideMenu("LoggedIn");
                         break;
                 // We will reset the app state with this choice
-                case 4: this.app.resetCurrentUser();
+                // Logging-out will write CSV data back to files
+                case 5: this.app.resetCurrentUser();
+                        this.app.writeBackToFiles();
                         this.createHomeMenu();
                         break;
                 default: System.out.println(INVALID_CHOICE_TEXT);
@@ -218,30 +228,13 @@ public class Menu {
         }
         while (!validChoice);
     }
-
+    
     // Create the Expense menu
-    private void createCreateExpenseMenu() throws NumberFormatException, ParseException {
-        // Clear the screan
-        clearScreen();  
-        
-        // Info we will use on page
+    private void createCreateExpenseMenu() throws NumberFormatException, ParseException, IOException {
+        // Show the header
+        this.showLoggedInHeader();
+        // Info we need
         User user = this.app.getCurrentUser();
-        String username = user.getUsername();
-        Team team = user.getTeam();
-        String teamName = team.getTeamName();
-        Budget budget = team.getBudget();
-        Double balance = budget.getCurrentAmount();
-        String stringBalance = Double.toString(balance);
-
-        // Populate menu header
-        System.out.println(DELIMITOR_LINE);
-        printInfoLine(PRODUCT_NAME, 68);
-        System.out.println(BLANK_LINE); 
-        printInfoLine("Username:               " + username, 68);
-        printInfoLine("Team:                   " + teamName, 68);
-        printInfoLine("Remaining Team Balance: " + stringBalance, 68);
-        System.out.println(DELIMITOR_LINE);
-
         // Ask for the expense details
         String expenseAmount = this.app.takeUserInput("Enter expense amount: ");
         String expenseDescription = this.app.takeUserInput("Enter expense description: ");
@@ -249,9 +242,47 @@ public class Menu {
         // Make the expense instance
         Expense expense = new Expense(Double.valueOf(expenseAmount), expenseDescription, expenseDate, user);
         // Record the expense against the team's budget
-        budget.recordExpense(expense);
+        this.app.getCurrentUser().getTeam().getBudget().recordExpense(expense);
         // Add the expense to the Application's list
         this.app.addExpense(expense);
+        // Go back to Logged-in menu
+        this.createLoggedInMenu();
+    }
+
+    // Create the New User menu
+    private void createCreateNewUserMenu() throws NumberFormatException, ParseException, IOException {
+        // Show the header
+        this.showLoggedInHeader();
+        // Info we need
+        Team team = this.app.getCurrentUser().getTeam();
+        // Ask for the user details
+        String newUsername = this.app.takeUserInput("Enter the new user's username: ");
+        String newPassword = this.app.takeUserInput("Enter the new user's initial password: ");
+        // Make the new User instance
+        User newUser = new User(newUsername, newPassword, team);
+        // Add the user to the Application's list
+        this.app.addUser(newUser);
+        // Go back to Logged-in menu
+        this.createLoggedInMenu();
+    }
+
+    // Create the Change Password menu
+    private void createChangePasswordMenu() throws NumberFormatException, ParseException, IOException {
+        // Show the header
+        this.showLoggedInHeader();
+        // Info we need
+        User user = this.app.getCurrentUser();
+        // Ask for the new password
+        while (true) {
+            String newPassword = this.app.takeUserInput("Enter new password: ");
+            String confirmPassword = this.app.takeUserInput("Confirm new password: ");
+            if (newPassword.equals(confirmPassword)) {
+                user.setPassword(newPassword);
+                break;
+            } else {
+                System.out.println("Passwords did not match!");
+            }
+        }
         // Go back to Logged-in menu
         this.createLoggedInMenu();
     }
