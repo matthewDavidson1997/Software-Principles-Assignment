@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The Csv class holds .csv file header and row data.
+ * The CsvReader class holds .csv file header and row data.
  */
-public class Csv {
+public class CsvReader {
     
     // FIELDS
     private String filepath;
@@ -18,7 +18,7 @@ public class Csv {
     private List<String[]> data = new ArrayList<>();
 
     // CONSTRUCTOR
-    public Csv(String filepath) throws IOException {
+    public CsvReader(String filepath) throws IOException {
         this.filepath = filepath;
         scanCsv(filepath);
     }
@@ -82,8 +82,8 @@ public class Csv {
     // A method to demonstrate usage
     public static void main(String[] args) throws IOException {
 
-        // Demonstrate making a new CsvReader
-        Csv csv  = new Csv("Teams.csv");
+        // Demonstrate making a new CsvReader object
+        CsvReader csv  = new CsvReader("Teams.csv");
         // Print the instance's path
         System.out.println(csv.getFilepath());
         // Print the header data

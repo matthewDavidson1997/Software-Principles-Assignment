@@ -85,7 +85,7 @@ class Application {
 
     // Populates the `teams` attribute of the Application
     private void addTeamsFromCsv(String filepath) throws IOException {
-        Csv csv = new Csv(filepath);
+        CsvReader csv = new CsvReader(filepath);
 
         for (String[] row : csv.getData()) {
             String teamName = row[0];
@@ -100,7 +100,7 @@ class Application {
 
     // Populates the `users` attribute of the Application
     private void addUsersFromCsv(String filepath) throws IOException {
-        Csv csv = new Csv(filepath);
+        CsvReader csv = new CsvReader(filepath);
 
         for (String[] row : csv.getData()) {
             String username = row[0];
@@ -119,7 +119,7 @@ class Application {
 
     // Records expenses listed in a CSV file
     private void processExpensesFromCsv(String filepath) throws IOException, ParseException {
-        Csv csv = new Csv(filepath);
+        CsvReader csv = new CsvReader(filepath);
 
         for (String[] row : csv.getData()) {
             Double amount = Double.parseDouble(row[0]);
