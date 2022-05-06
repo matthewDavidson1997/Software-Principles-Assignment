@@ -13,3 +13,4 @@
 * [x] Remove significant code duplication in Menu class 'create' methods
 * [ ] Add quit option to interactive menus - eg to bail-out of adding a new expense
 * [ ] Make 'Home' and 'Back' options consistent(?)
+* [ ] List other team members in the logged-in header(?)
