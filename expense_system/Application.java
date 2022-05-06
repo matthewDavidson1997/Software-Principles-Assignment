@@ -18,6 +18,9 @@ class Application {
     private List<Expense> expenses;
     private User currentUser;
     private boolean userValidated;
+    private Csv teamsCsv;
+    private Csv usersCsv;
+    private Csv expensesCsv;
 
     // CONSTRUCTOR
     public Application() {
@@ -26,6 +29,9 @@ class Application {
         this.expenses = new ArrayList<>();
         this.currentUser = null;
         this.userValidated = false;
+        this.teamsCsv = null;
+        this.usersCsv = null;
+        this.expensesCsv = null;
     }
 
     // METHODS
@@ -81,13 +87,13 @@ class Application {
         this.expenses.add(expense);
     }
 
-    // METHODS READING FROM CSV FILES
+    // METHODS READING FROM (AND WRITING TO) CSV FILES
 
     // Populates the `teams` attribute of the Application
     private void addTeamsFromCsv(String filepath) throws IOException {
-        CsvReader csv = new CsvReader(filepath);
+        this.teamsCsv = new Csv(filepath);
 
-        for (String[] row : csv.getData()) {
+        for (String[] row : this.teamsCsv.getData()) {
             String teamName = row[0];
             // Convert the budget text to a Float
             Float teamBudget = Float.parseFloat(row[1]);
@@ -100,9 +106,9 @@ class Application {
 
     // Populates the `users` attribute of the Application
     private void addUsersFromCsv(String filepath) throws IOException {
-        CsvReader csv = new CsvReader(filepath);
+        this.usersCsv = new Csv(filepath);
 
-        for (String[] row : csv.getData()) {
+        for (String[] row : this.usersCsv.getData()) {
             String username = row[0];
             String password = row[1];
             String teamName = row[2];
@@ -117,11 +123,11 @@ class Application {
         }
     }
 
-    // Records expenses listed in a CSV file
-    private void processExpensesFromCsv(String filepath) throws IOException, ParseException {
-        CsvReader csv = new CsvReader(filepath);
+    // Populates the `expenses` attribute of the Application
+    private void addExpensesFromCsv(String filepath) throws IOException, ParseException {
+        this.expensesCsv = new Csv(filepath);
 
-        for (String[] row : csv.getData()) {
+        for (String[] row : this.expensesCsv.getData()) {
             Double amount = Double.parseDouble(row[0]);
             String description = row[1];
             String stringDate = row[2];
@@ -132,8 +138,6 @@ class Application {
             User user = this.getUserByName(username);
             // Create an Expense instance
             Expense expense = new Expense(amount, description, stringDate, user);
-            // Record the expense against the user's team budget
-            user.getTeam().getBudget().recordExpense(expense);
             // Add it to the Application's list of expenses
             this.expenses.add(expense);
         }
@@ -207,6 +211,60 @@ class Application {
         this.userValidated = false;
     }
 
+    // Update Teams CSV data
+    public void updateTeamsCsvData() {
+        List<String[]> updatedData = new ArrayList<>();
+
+        for (Team team : this.teams) {
+            String teamName = team.getTeamName();
+            String stringBudget = Double.toString(team.getBudget().getCurrentAmount());
+            String[] dataRow = {teamName, stringBudget};
+            updatedData.add(dataRow);
+        }
+        this.teamsCsv.setData(updatedData);
+    }
+
+    // Update Users CSV data
+    public void updateUsersCsvData() {
+        List<String[]> updatedData = new ArrayList<>();
+
+        for (User user : this.users) {
+            String username = user.getUsername();
+            String password = user.getPassword();
+            String teamName = user.getTeam().getTeamName();
+
+            String[] dataRow = {username, password, teamName};
+            updatedData.add(dataRow);
+        }
+        this.usersCsv.setData(updatedData);
+    }
+
+    // Update Expenses CSV data
+    public void updateExpensesCsvData() {
+        List<String[]> updatedData = new ArrayList<>();
+
+        for (Expense expense : this.expenses) {
+            String stringAmount = Double.toString(expense.getAmount());
+            String description = expense.getDescription();
+            String stringDate = expense.getDateAsString();
+            String username = expense.getUser().getUsername();
+
+            String[] dataRow = {stringAmount, description, stringDate, username};
+            updatedData.add(dataRow);
+        }
+        this.expensesCsv.setData(updatedData);
+    }
+    
+    // Synchronise application Csv objects with the filesystem
+    public void writeBackToFiles() throws IOException {
+        this.updateTeamsCsvData();
+        this.teamsCsv.writeCsv(this.teamsCsv.getFilepath());
+        this.updateUsersCsvData();
+        this.usersCsv.writeCsv(this.usersCsv.getFilepath());
+        this.updateExpensesCsvData();
+        this.expensesCsv.writeCsv(this.expensesCsv.getFilepath());
+    }
+
     public static void main(String[] args) throws ParseException, IOException {
 
         // Create an Application instance
@@ -215,7 +273,7 @@ class Application {
         app.addTeamsFromCsv("Teams.csv");
         app.addUsersFromCsv("Users.csv");
         // Record expenses from CSV file
-        app.processExpensesFromCsv("Expenses.csv");
+        app.addExpensesFromCsv("Expenses.csv");
         
         // Create the Application menu
         new Menu(app);
