@@ -1,7 +1,8 @@
 ﻿Amount,Description,Date,User
-50,lunch,12/12/2012,Matthew
-120,Dinner,01/02/2018,Mark
-80,Bowling,02/05/2020,John
-75,Cinema,05/07/2022,Jude
-134,Dinner,01/02/2018,Mark
-50,Bowling,02/05/2020,John
+50.0,lunch,12/12/12,Matthew
+120.0,Dinner,01/02/18,Mark
+80.0,Bowling,02/05/20,John
+75.0,Cinema,05/07/22,Jude
+134.0,Dinner,01/02/18,Mark
+50.0,Bowling,02/05/20,John
+123.45,Sports massage,10/06/21,James
