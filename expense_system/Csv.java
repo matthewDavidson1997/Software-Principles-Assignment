@@ -50,7 +50,7 @@ public class Csv {
         this.data.add(row);
     }
 
-    // A method to scan the file contents into the Csv class instanc header and data attributes 
+    // A method to scan the file contents into the Csv class instance header and data attributes 
     public void scanCsv(String filepath) throws IOException {
         BufferedReader reader = null;
         String line = "";
