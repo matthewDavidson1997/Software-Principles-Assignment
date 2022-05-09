@@ -185,7 +185,6 @@ class Application {
                 System.out.print("Login successful\n\n");
                 // If successful, set the current user
                 this.currentUser = user;
-                System.out.println(user);
                 // And set the userValidated boolean
                 this.userValidated = true;
             } else {
