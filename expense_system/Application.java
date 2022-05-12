@@ -149,6 +149,8 @@ class Application {
             Expense expense = new Expense(amount, description, stringDate, user);
             // Add it to the Application's list of expenses
             this.expenses.add(expense);
+            // Record expense against team budget
+            user.getTeam().getBudget().recordExpense(expense);
         }
     }
 
@@ -219,19 +221,6 @@ class Application {
         this.userValidated = false;
     }
 
-    // Update Teams CSV data
-    public void updateTeamsCsvData() {
-        List<String[]> updatedData = new ArrayList<>();
-
-        for (Team team : this.teams) {
-            String teamName = team.getTeamName();
-            String stringBudget = Double.toString(team.getBudget().getCurrentAmount());
-            String[] dataRow = {teamName, stringBudget};
-            updatedData.add(dataRow);
-        }
-        this.teamsCsv.setData(updatedData);
-    }
-
     // Update Users CSV data
     public void updateUsersCsvData() {
         List<String[]> updatedData = new ArrayList<>();
@@ -265,8 +254,6 @@ class Application {
     
     // Synchronise application Csv objects with the filesystem
     public void writeBackToFiles() throws IOException {
-        this.updateTeamsCsvData();
-        this.teamsCsv.writeCsv(this.teamsCsv.getFilepath());
         this.updateUsersCsvData();
         this.usersCsv.writeCsv(this.usersCsv.getFilepath());
         this.updateExpensesCsvData();

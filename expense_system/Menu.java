@@ -187,12 +187,13 @@ public class Menu {
         this.showLoggedInHeader();
         // Info we need
         List<Expense> expenses = this.app.getCurrentUser().getTeam().getBudget().getExpenses();
-        String username = this.app.getCurrentUser().getUsername();
+        
         // Show Team Expenses
         for (Expense expense : expenses) {
             String stringAmount = Double.toString(expense.getAmount());
             String description = expense.getDescription();
             String stringDate = expense.getDateAsString();
+            String username = expense.getUser().getUsername();
             System.out.print(START_TEXT_LINE + padString(stringAmount, 17) + padString(description, 17) + padString(stringDate, 17) + padString(username, 17) + END_TEXT_LINE +"\n");
 
         }
